@@ -4,6 +4,14 @@
 #          http://www.boost.org/LICENSE_1_0.txt)
 
 cmake_minimum_required(VERSION 3.1)
+
+option(HUNTER_ENABLED "Enable Hunter package manager" NO)
+include("cmake/HunterGate.cmake")
+HunterGate(
+    URL "https://github.com/ruslo/hunter/archive/v0.23.29.tar.gz"
+    SHA1 "797be99a8a4f4666766257563fad8aa3aa032da2"
+)
+
 project(mariadbclientpp)
 
 # add additional cmake modules
