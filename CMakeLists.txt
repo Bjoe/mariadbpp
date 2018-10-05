@@ -46,10 +46,13 @@ target_include_directories(mariadbclientpp PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/in
 # install configuration
 install(FILES ${mariadbclientpp_PUBLIC_HEADERS} DESTINATION include/mariadb++)
 install(TARGETS mariadbclientpp
+	EXPORT mariadbclientpp
 	ARCHIVE DESTINATION lib
 	RUNTIME DESTINATION bin
 	LIBRARY DESTINATION lib
 )
+
+install(EXPORT mariadbclientpp NAMESPACE mariadb:: DESTINATION lib/cmake/mariadb)
 
 SET(CPACK_PACKAGE_DESCRIPTION_SUMMARY "MariaDB++")
 SET(CPACK_PACKAGE_VENDOR "ViaDuck")
