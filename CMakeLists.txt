@@ -25,6 +25,9 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/external/cmake-module
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
+option(MARIADBPP_WITH_TESTS "With unit tests" OFF)
+option(MARIADBPP_WITH_DOCS "Generate documentation (Needs doxygen)" OFF)
+
 # dependencies
 find_package(MariaDBClient REQUIRED)
 
@@ -55,11 +58,15 @@ SET(CPACK_GENERATOR "RPM;DEB")
 SET(CPACK_DEBIAN_PACKAGE_MAINTAINER "Nobody")
 INCLUDE(CPack)
 
+if(MARIADBPP_WITH_TESTS)
 # tests
-add_subdirectory(test)
+  add_subdirectory(test)
+endif()
 
-# doxygen
-include(Doxygen)
-if (DOXYGEN_FOUND)
-	setup_doxygen(mariadbpp_doc ${CMAKE_CURRENT_SOURCE_DIR}/Doxyfile.in)
+if(MARIADBPP_WITH_DOCS)
+  # doxygen
+  include(Doxygen)
+  if (DOXYGEN_FOUND)
+	  setup_doxygen(mariadbpp_doc ${CMAKE_CURRENT_SOURCE_DIR}/Doxyfile.in)
+  endif()
 endif()
