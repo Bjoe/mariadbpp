@@ -19,7 +19,7 @@ hunter_add_package(MariaDB-client)
 find_package(OpenSSL REQUIRED)
 
 # add additional cmake modules
-list(INSERT CMAKE_MODULE_PATH 0 "${CMAKE_CURRENT_SOURCE_DIR}/external/cmake-modules")
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/external/cmake-modules")
 
 # c++ standard
 set(CMAKE_CXX_STANDARD 11)
