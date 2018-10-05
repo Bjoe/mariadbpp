@@ -40,8 +40,11 @@ file(GLOB mariadbclientpp_SOURCES src/*.cpp)
 add_library(mariadbclientpp ${mariadbclientpp_SOURCES} ${mariadbclientpp_PUBLIC_HEADERS} ${mariadbclientpp_PRIVATE_HEADERS})
 
 # target options
-target_link_libraries(mariadbclientpp ${MariaDBClient_LIBRARIES} pthread)
-target_include_directories(mariadbclientpp PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include ${MariaDBClient_INCLUDE_DIRS})
+target_link_libraries(mariadbclientpp PUBLIC MariaDB::client pthread)
+target_include_directories(mariadbclientpp PUBLIC
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<INSTALL_INTERFACE:include>
+)
 
 # install configuration
 install(FILES ${mariadbclientpp_PUBLIC_HEADERS} DESTINATION include/mariadb++)
@@ -50,6 +53,7 @@ install(TARGETS mariadbclientpp
 	ARCHIVE DESTINATION lib
 	RUNTIME DESTINATION bin
 	LIBRARY DESTINATION lib
+	PUBLIC_HEADER DESTINATION include
 )
 
 install(EXPORT mariadbclientpp NAMESPACE mariadb:: DESTINATION lib/cmake/mariadb)
